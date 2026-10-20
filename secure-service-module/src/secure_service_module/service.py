@@ -41,6 +41,8 @@ class UserService:
         user = self.user_repo.search_user(username)
         if user is None:
             raise UserNotFoundError("User with this username does not exists.")
-        if user is not None:
-            self.pass_hash.password_validator(user, password)
+
+        if not self.pass_hash.password_validator(user, password):
+            raise InvalidPasswordError("Invalid username or password")
+
         return user
