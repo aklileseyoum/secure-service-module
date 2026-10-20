@@ -28,4 +28,6 @@ class BcryptPasswordHasher(PasswordHasher):
             True: if the password matches.
             False: if the password doesn't match.
         """
-        raise NotImplementedError
+        return bcrypt.checkpw(
+            password_unhashed.encode("utf-8"), user.password_hash.encode("utf-8")
+        )
