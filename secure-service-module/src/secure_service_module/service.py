@@ -51,4 +51,5 @@ class UserService:
         if not self.pass_hash.password_validator(user, password):
             raise InvalidPasswordError("Invalid username or password")
 
+        logger.info("login successful: %s", username)
         return user
