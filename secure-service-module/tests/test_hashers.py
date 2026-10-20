@@ -13,3 +13,9 @@ def test_password_validator():
     hasher = BcryptPasswordHasher()
     user = User(username="aline", password_hash=hasher.password_hash("Secret123!"))
     assert hasher.password_validator(user, "Secret123!")
+
+
+def test_password_validator_wrong_password():
+    hasher = BcryptPasswordHasher()
+    user = User(username="aline", password_hash=hasher.password_hash("Secret123!"))
+    assert hasher.password_validator(user, "Wrong123!") is False
