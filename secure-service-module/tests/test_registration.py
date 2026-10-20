@@ -2,7 +2,10 @@
 
 import pytest
 from pytest_mock import MockerFixture
-from secure_service_module.exceptions import UserAlreadyExistsError
+from secure_service_module.exceptions import (
+    InvalidPasswordError,
+    UserAlreadyExistsError,
+)
 from secure_service_module.interfaces import PasswordHasher, UserRepository
 from secure_service_module.models import User
 from secure_service_module.service import UserService
@@ -44,4 +47,11 @@ def test_register_duplicate_username_raises(service, repo) -> None:
     repo.search_user.return_value = User(username="aline", password_hash="x")
     with pytest.raises(UserAlreadyExistsError):
         service.create_user("aline", "Secret123!")
+    repo.save_user.assert_not_called()
+
+
+def test_register_short_password_raises(service, repo) -> None:
+    """Attempting to register with short length password raises InvalidPasswordError."""
+    with pytest.raises(InvalidPasswordError, match="at least 8"):
+        service.create_user("aline", "Abc@123")
     repo.save_user.assert_not_called()
