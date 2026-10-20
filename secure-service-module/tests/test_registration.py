@@ -69,3 +69,10 @@ def test_register_no_digits(service, repo) -> None:
     with pytest.raises(InvalidPasswordError, match="at least one digit"):
         service.create_user("aline", "Abcd@efgh")
     repo.save_user.assert_not_called()
+
+
+def test_register_no_symbols(service, repo) -> None:
+    """Attempting to register with password with no symbols raises Invalid Password Error."""
+    with pytest.raises(InvalidPasswordError, match="at least one symbol"):
+        service.create_user("aline", "Abcde1234")
+    repo.save_user.assert_not_called()
