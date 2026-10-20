@@ -1,4 +1,5 @@
 from secure_service_module.interfaces import PasswordHasher, UserRepository
+from secure_service_module.models import User
 
 
 class UserService:
@@ -7,7 +8,9 @@ class UserService:
         self.pass_hash = pass_hash
 
     def create_user(self, username: str, password: str) -> None:
-        raise NotImplementedError
+        password_hashed = self.pass_hash.password_hash(password)
+        user = User(username=username, password_hash=password_hashed)
+        self.user_repo.save_user(user)
 
     def password_check(self, password: str) -> None:
         raise NotImplementedError
