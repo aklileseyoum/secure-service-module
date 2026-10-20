@@ -1,0 +1,28 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0
+rootdir: C:\Users\Aklile AmaliTech\Desktop\AmaliTech\Backend\Python_Clean_code_testing_and_git\Lab2\secure-service-module
+configfile: pyproject.toml
+plugins: platformdirs-4.13.5, cov-7.1.0, mock-3.17.0
+collected 18 items
+
+tests\test_hashers.py ...                                                [ 16%]
+tests\test_logging.py ....                                               [ 38%]
+tests\test_login.py ...                                                  [ 55%]
+tests\test_registration.py ......                                        [ 88%]
+tests\test_repositories.py ..                                            [100%]
+
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.14.8-final-0 _______________
+
+Name                                        Stmts   Miss Branch BrPart  Cover   Missing
+---------------------------------------------------------------------------------------
+src\secure_service_module\__init__.py           0      0      0      0   100%
+src\secure_service_module\exceptions.py        12      0      0      0   100%
+src\secure_service_module\hashers.py            9      0      0      0   100%
+src\secure_service_module\interfaces.py        12      0      0      0   100%
+src\secure_service_module\models.py             3      0      0      0   100%
+src\secure_service_module\repositories.py       9      0      0      0   100%
+src\secure_service_module\service.py           39      0     14      0   100%
+---------------------------------------------------------------------------------------
+TOTAL                                          84      0     14      0   100%
+============================= 18 passed in 1.15s ==============================
