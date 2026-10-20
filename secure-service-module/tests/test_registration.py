@@ -59,6 +59,8 @@ def test_register_short_password_raises(service, repo) -> None:
 
 def test_register_no_capital_letters(service, repo) -> None:
     """Attempting to register with password with no capital letters raises Invalid Password Error."""
-    with pytest.raises(InvalidPasswordError, match="at least one capital letter"):
+    with pytest.raises(
+        InvalidPasswordError, match="must contain at least one uppercase letter"
+    ):
         service.create_user("aline", "abcd@1234")
     repo.save_user.assert_not_called()
