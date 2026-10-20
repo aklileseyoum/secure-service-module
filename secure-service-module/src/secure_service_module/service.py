@@ -18,6 +18,7 @@ class UserService:
 
     def create_user(self, username: str, password: str) -> None:
         if self.user_repo.search_user(username) is not None:
+            logger.warning("registration rejected, username taken: %s", username)
             raise UserAlreadyExistsError("User with this username already exists.")
         self.password_check(password)
         password_hashed = self.pass_hash.password_hash(password)
