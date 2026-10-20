@@ -49,6 +49,7 @@ class UserService:
             raise UserNotFoundError("User with this username does not exists.")
 
         if not self.pass_hash.password_validator(user, password):
+            logger.warning("login failed, username taken: %s", username)
             raise InvalidPasswordError("Invalid username or password")
 
         logger.info("login successful: %s", username)
