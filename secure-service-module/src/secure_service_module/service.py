@@ -1,3 +1,5 @@
+import logging
+
 from secure_service_module.exceptions import (
     InvalidPasswordError,
     UserAlreadyExistsError,
@@ -5,6 +7,8 @@ from secure_service_module.exceptions import (
 )
 from secure_service_module.interfaces import PasswordHasher, UserRepository
 from secure_service_module.models import User
+
+logger = logging.getLogger(__name__)
 
 
 class UserService:
@@ -14,11 +18,13 @@ class UserService:
 
     def create_user(self, username: str, password: str) -> None:
         if self.user_repo.search_user(username) is not None:
+            logger.warning("registration rejected, username taken: %s", username)
             raise UserAlreadyExistsError("User with this username already exists.")
         self.password_check(password)
         password_hashed = self.pass_hash.password_hash(password)
         user = User(username=username, password_hash=password_hashed)
         self.user_repo.save_user(user)
+        logger.info("user registered: %s", username)
 
     def password_check(self, password: str) -> None:
         capital = any(ch.isupper() for ch in password)
@@ -43,6 +49,8 @@ class UserService:
             raise UserNotFoundError("User with this username does not exists.")
 
         if not self.pass_hash.password_validator(user, password):
+            logger.warning("login failed, username taken: %s", username)
             raise InvalidPasswordError("Invalid username or password")
 
+        logger.info("login successful: %s", username)
         return user
