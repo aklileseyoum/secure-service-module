@@ -35,3 +35,6 @@ class UserService:
             raise InvalidPasswordError(
                 "Password must contain at least one symbol, such as ! or @."
             )
+
+    def login(self, username: str, password: str) -> User:
+        raise NotImplementedError
