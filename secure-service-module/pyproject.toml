@@ -1,13 +1,14 @@
 [project]
 name = "secure-service-module"
 version = "0.1.0"
-description = ""
+description = "Reusable user authentication service with bcrypt password hashing, a password policy, duplicate prevention and structured logging."
 authors = [
     {name = "aklileseyoum",email = "aklileseyoum294@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.11"
 dependencies = [
+    "bcrypt (>=5.0.0,<6.0.0)"
 ]
 
 [tool.poetry]
@@ -16,3 +17,24 @@ packages = [{include = "secure_service_module", from = "src"}]
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "black (>=26.10.1,<27.0.0)",
+    "ruff (>=0.17.1,<0.18.0)",
+    "mypy (>=2.4.0,<3.0.0)",
+    "pytest (>=9.1.1,<10.0.0)",
+    "pytest-cov (>=7.1.0,<8.0.0)",
+    "pytest-mock (>=3.17.0,<4.0.0)",
+    "pre-commit (>=4.7.0,<5.0.0)"
+]
+
+[tool.coverage.run]
+branch = true
+source = ["secure_service_module"]
+
+[tool.coverage.report]
+fail_under = 100
+
+[tool.ruff.lint.isort]
+known-first-party = ["secure_service_module"]
