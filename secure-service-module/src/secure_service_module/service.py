@@ -20,5 +20,10 @@ class UserService:
         self.user_repo.save_user(user)
 
     def password_check(self, password: str) -> None:
+        capital = any(ch.isupper() for ch in password)
         if len(password) < 8:
             raise InvalidPasswordError("Password must be at least 8 characters long.")
+        if not capital:
+            raise InvalidPasswordError(
+                "Password must contain at least one uppercase letter."
+            )
