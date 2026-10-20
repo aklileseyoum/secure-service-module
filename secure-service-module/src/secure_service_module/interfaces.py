@@ -9,13 +9,13 @@ class UserRepository(ABC):
     """Interface to store users."""
 
     @abstractmethod
-    def search_user(self, username: str) -> bool:
+    def search_user(self, username: str) -> User | None:
         """Searches if user exists.
         Args:
             user: The user whom we are searching
         Return:
-            True: if the user is found.
-            False: if the user is not found
+            User: if the user is found.
+            None: if the user is not found
         """
 
     @abstractmethod
