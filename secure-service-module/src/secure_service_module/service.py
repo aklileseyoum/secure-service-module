@@ -1,6 +1,7 @@
 from secure_service_module.exceptions import (
     InvalidPasswordError,
     UserAlreadyExistsError,
+    UserNotFoundError,
 )
 from secure_service_module.interfaces import PasswordHasher, UserRepository
 from secure_service_module.models import User
@@ -35,3 +36,13 @@ class UserService:
             raise InvalidPasswordError(
                 "Password must contain at least one symbol, such as ! or @."
             )
+
+    def login(self, username: str, password: str) -> User | None:
+        user = self.user_repo.search_user(username)
+        if user is None:
+            raise UserNotFoundError("User with this username does not exists.")
+
+        if not self.pass_hash.password_validator(user, password):
+            raise InvalidPasswordError("Invalid username or password")
+
+        return user
