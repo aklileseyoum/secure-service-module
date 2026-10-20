@@ -40,11 +40,11 @@ class PasswordHasher(ABC):
         """
 
     @abstractmethod
-    def password_validator(self, password: str, hashed: str) -> bool:
+    def password_validator(self, user: User, password_unhashed: str) -> bool:
         """checks if the password is correct.
         Args:
-            hashed: the hashed value of a potential password
-            password: the password from user's input
+            user: user object that holds username and hashed password
+            password_unhashed: the password from user's input
 
         Return:
             True: if the password matches.
