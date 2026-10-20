@@ -22,6 +22,7 @@ class UserService:
     def password_check(self, password: str) -> None:
         capital = any(ch.isupper() for ch in password)
         has_digit = any(ch.isdigit() for ch in password)
+        has_symbol = any(not ch.isalnum() for ch in password)
         if len(password) < 8:
             raise InvalidPasswordError("Password must be at least 8 characters long.")
         if not capital:
@@ -30,3 +31,7 @@ class UserService:
             )
         if not has_digit:
             raise InvalidPasswordError("Password must contain at least one digit.")
+        if not has_symbol:
+            raise InvalidPasswordError(
+                "Password must contain at least one symbol, such as ! or @."
+            )
